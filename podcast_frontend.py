@@ -42,14 +42,11 @@ def main():
 
         with col3:
             st.subheader("Podcast Guest")
-            if podcast_info["podcast_guest"]:
-                st.write(podcast_info["podcast_guest"]['name'])
-            else:
-                st.write("No guest on this episode")
+            st.write(podcast_info['podcast_guest']['name'])
 
         with col4:
-            st.subheader("Podcast Guest Details")
-            if podcast_info["podcast_guest"]:
+            if podcast_info['podcast_guest']['summary'] != "No guest info":
+                st.subheader("Podcast Guest Details")
                 st.write(podcast_info["podcast_guest"]['summary'])
 
         # Display the five key moments
@@ -94,14 +91,11 @@ def main():
 
         with col3:
             st.subheader("Podcast Guest")
-            if podcast_info["podcast_guest"]:
-                st.write(podcast_info["podcast_guest"]['name'])
-            else:
-                st.write("No guest on this episode")
+            st.write(podcast_info['podcast_guest']['name'])
 
         with col4:
-            st.subheader("Podcast Guest Details")
-            if podcast_info["podcast_guest"]:
+            if podcast_info['podcast_guest']['summary'] != "No guest info":
+                st.subheader("Podcast Guest Details")
                 st.write(podcast_info["podcast_guest"]['summary'])
 
         # Display the five key moments
@@ -127,7 +121,7 @@ def create_dict_from_json_files(folder_path):
 
 def process_podcast_info(url):
     f = modal.Function.lookup("corise-podcast-project", "process_podcast")
-    output = f.call(url, '/content/podcast/')
+    output = f.remote(url, '/content/podcast/')
     return output
 
 if __name__ == '__main__':
